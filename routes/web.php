@@ -31,7 +31,18 @@ Route::get('product-details/{id}', [ProductController::class, 'index'])->name('p
 
 Route::group(['middleware' => ['auth', 'roleWiseLogin']], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    //Customer View & List
     Route::get('customer-list', [CustomerVendorController::class, 'customerListView'])->name('customer-list');
+    Route::get('customer-fetch', [CustomerVendorController::class, 'fetchCustomerList'])->name('customer-fetch');
+    
+    //Vendor View & List
+    Route::get('vendor-list', [CustomerVendorController::class, 'vendorListView'])->name('vendor-list');
+    Route::get('vendor-fetch', [CustomerVendorController::class, 'fetchVendorList'])->name('vendor-fetch');
+
+    //Product View & List
+    Route::get('product-list', [ProductController::class, 'productListView'])->name('product-list');
+    Route::get('product-fetch', [ProductController::class, 'fetchProductList'])->name('product-fetch');
 
 });
 

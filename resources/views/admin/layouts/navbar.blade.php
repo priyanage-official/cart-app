@@ -6,11 +6,19 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
+                <a class="nav-link" href="{{route('customer-list')}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    Customer List
+                </a>
+                <a class="nav-link" href="{{route('vendor-list')}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    Vendor List
+                </a>
+                <a class="nav-link" href="{{route('product-list')}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                    Product List
+                </a>
             </div>
-        </div>
-        <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:</div>
-            Start Bootstrap
         </div>
     </nav>
 </div>

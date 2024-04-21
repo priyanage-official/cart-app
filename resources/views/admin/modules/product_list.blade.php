@@ -2,20 +2,17 @@
 
 @section('main-section')
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Customer List</h1>
+        <h1 class="mt-4">Product List</h1>
         <div class="card mb-4">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table" id="customerListDatatable">
+                    <table class="table" id="productListDatatable">
                         <thead>
                             <tr>
-                                <th>Profile Pic</th>
-                                <th>FullName</th>
-                                <th>Email ID</th>
-                                <th>Username</th>
-                                <th>Mobile No.</th>
-                                <th>Address</th>
-                                <th>DOB</th>
+                                <th>Product Img</th>
+                                <th>Product Name</th>
+                                <th>Product Price</th>
+                                <th>Product Description</th>
                             </tr>
                         </thead>
                         <tbody>
