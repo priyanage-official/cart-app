@@ -18,8 +18,8 @@ class RoleWiseLogin
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user()->with('roles')->first();
-        if($user->roles->role_type == 'user'){
-            return redirect('/');
+        if($user->roles->role_type == 'admin'){
+            return redirect('/dashboard');
         }
 
         return $next($request);

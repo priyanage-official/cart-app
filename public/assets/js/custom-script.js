@@ -79,7 +79,7 @@ $(document).ready(function () {
                         document.getElementById("login-form").reset();
                         closeModal();
 
-                        window.location.replace('/');
+                        window.location.replace(response.redirectTo);
 
                         $.jGrowl(jqXHR.responseJSON.message, {
                             header: 'Login',

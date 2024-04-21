@@ -13,7 +13,7 @@
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5 class="fw-bolder">{{$product->product_name}}</h5>
+                            <h5 class="fw-bolder"><a target="_blank" href="{{route('product-details', ['id' => $product->id])}}">{{$product->product_name}}</a></h5>
                             <!-- Product price-->
                             ${{$product->product_price}}
                         </div>

@@ -27,9 +27,12 @@ class ProductServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('layouts.navbar', function ($view) {
-            $product = Product::whereHas('users', function ($query) {
-                $query->where('id',  Auth::user()->id);
-            })->pluck('id')->toArray();
+            $product = [];
+            if (Auth::check()) {
+                $product = Product::whereHas('users', function ($query) {
+                    $query->where('id',  Auth::user()->id);
+                })->pluck('id')->toArray();
+            }
 
             $view->with('userCartProduct', $product);
         });

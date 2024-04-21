@@ -32,11 +32,16 @@ class LoginController extends Controller
             ]);
 
             if (Auth::attempt($credentials)) {
-                $user = User::where('username', $request->username)->first();
+                $user = User::where('username', $request->username)->with('roles')->first();
                 $request->session()->put('user', $user);
+                $request->session()->put('role_type', $user->roles->role_type);
                 $request->session()->put('cart', $this->pservices->getUserCart());
+                $redirectTo = '/';
+                if($user->roles->role_type == 'admin'){
+                    $redirectTo = '/dashboard';
+                }
                 $request->session()->regenerate();
-                return response()->json(['statusCode' => 200, 'message' => 'Successfully Logged In!']);
+                return response()->json(['statusCode' => 200, 'message' => 'Successfully Logged In!', 'redirectTo' => $redirectTo]);
             } else {
                 return response()->json(['statusCode' => 403, 'message' => 'Wrong Email Or Password!']);
             }
