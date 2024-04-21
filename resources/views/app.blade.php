@@ -52,6 +52,7 @@
     </script>
 
     <script src="{{asset('assets/js/custom-script.js')}}"></script>
+    <script src="{{asset('assets/js/add-to-cart.js')}}"></script>
     <script src="{{asset('assets/js/jquery.jgrowl.min.js')}}"></script>
 
     @include('layouts.modal')

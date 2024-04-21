@@ -107,6 +107,88 @@ $(document).ready(function () {
     });
 
     //User Registration
+    $("#register-form").validate({
+        rules: {
+            fullname: {
+                required: true
+            },
+            email_id: {
+                required: true
+            },
+            contact_no: {
+                required: true
+            },
+            username: {
+                required: true
+            },
+            password: {
+                required: true
+            },
+            address: {
+                required: true
+            },
+            dob: {
+                required: true
+            },
+            profile_pic: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $("#registerBtn").attr('disabled', true);
+
+            let href = "http://127.0.0.1:8000/register";
+
+            let formData = new FormData(form);
+
+            let files = $("#registerProfilePic")[0].files;
+
+            if (files.length > 0) {
+                formData.append("profile_pic", files);
+            } else {
+                formData.append("profile_pic", '')
+            }
+
+            $.ajax({
+                url: href,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (resposne, textStatus, jqXHR) {
+                    $("#registerBtn").attr('disabled', false);
+
+                    if (jqXHR.responseJSON.statusCode == 200) {
+                        document.getElementById("register-form").reset();
+                        closeModal();
+
+                        $.jGrowl(jqXHR.responseJSON.message, {
+                            header: 'Registration',
+                            group: 'bg-primary',
+
+                        });
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#registerBtn").attr('disabled', false);
+                    $.jGrowl(jqXHR.responseJSON.message, {
+                        header: 'Registration',
+                        group: 'bg-danger',
+
+                    });
+                }
+            })
+        }
+    });
+
+    //Save Profile
     $("#save-profile").validate({
         rules: {
             fullname: {
@@ -138,13 +220,13 @@ $(document).ready(function () {
 
             let formData = new FormData(form);
 
-            // let files = $("#registerProfilePic")[0].files;
+            let files = $("#registerProfilePic")[0].files;
 
-            // if (files.length > 0) {
-            //     formData.append("profile_pic", files);
-            // } else {
-            //     formData.append("profile_pic", '')
-            // }
+            if (files.length > 0) {
+                formData.append("profile_pic", files);
+            } else {
+                formData.append("profile_pic", '')
+            }
 
             $.ajax({
                 url: href,

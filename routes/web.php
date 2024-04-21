@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController\DashboardController;
 use App\Http\Controllers\AuthController\LoginController;
 use App\Http\Controllers\AuthController\RegisterController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -19,18 +20,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class,'index'])->name('homepage');
-
 Route::get('login', [LoginController::class, 'index'])->name('login');
-
 Route::post('register', [RegisterController::class, 'registerUser'])->name('register');
 Route::post('login', [LoginController::class, 'loginUser'])->name('login');
 
 Route::group(['middleware' => ['auth', 'roleWiseLogin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('logout', [LoginController::class, 'logoutUser'])->name('logout');
 });
 
 Route::group(['middleware' => ['auth']], function (){
     Route::get('profile-page', [ProfileController::class, 'index'])->name('profile-page');
     Route::post('save-profile', [ProfileController::class, 'updateUserProfile'])->name('save-profile');
+    Route::post('add-to-cart', [CartController::class, 'AddProductInCart'])->name('add-to-cart');
+    Route::post('remove-to-cart', [CartController::class, 'RemoveProductInCart'])->name('remove-to-cart');
+    Route::post('logout', [LoginController::class, 'logoutUser'])->name('logout');
+
 });

@@ -45,8 +45,6 @@ class ProfileController extends Controller
                     if(file_exists($_SERVER['DOCUMENT_ROOT'] . '/assets/'. $oldFile)){
                         unlink($_SERVER['DOCUMENT_ROOT'] . '/assets/'. $oldFile);
                     }
-
-
                 }
 
                 DB::commit();

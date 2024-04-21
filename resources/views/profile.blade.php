@@ -9,7 +9,8 @@
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                         <img class="rounded-circle mt-5" width="150px" id="profile-img" style="width: 150px;height: 150px;"
                             src="{{ asset('assets') }}/{{ $profileData->profile_pic }}">
-                        <span><button type="button" class="btn btn-dark btn-sm" id="profileImg">Change Picture</button></span>
+                        <span><button type="button" class="btn btn-dark btn-sm" id="profileImg">Change
+                                Picture</button></span>
                         <span class="font-weight-bold">{{ $profileData->fullname }}</span>
                         <span class="text-black-50">{{ $profileData->email_id }}</span>
                     </div>

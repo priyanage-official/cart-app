@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\ProductService;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,12 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+
+    public function __construct(ProductService $pservices)
+    {
+        $this->pservices = $pservices;
+    }
+
     public function index()
     {
         return redirect('/');
@@ -27,6 +34,7 @@ class LoginController extends Controller
             if (Auth::attempt($credentials)) {
                 $user = User::where('username', $request->username)->first();
                 $request->session()->put('user', $user);
+                $request->session()->put('cart', $this->pservices->getUserCart());
                 $request->session()->regenerate();
                 return response()->json(['statusCode' => 200, 'message' => 'Successfully Logged In!']);
             } else {
