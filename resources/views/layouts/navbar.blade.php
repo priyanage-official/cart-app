@@ -31,6 +31,9 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="{{route('profile-page')}}"><i class="fas fa-sliders-h fa-fw"></i> Profile</a></li>
+              @if(session('role_type') == 'admin')
+              <li><a class="dropdown-item" href="{{route('dashboard')}}"><i class="fas fa-sliders-h fa-fw"></i> Admin Panel</a></li>
+              @endif
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" style="cursor: pointer;" onclick="this.disabled=true;document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a></li>
                 <form id="logout-form" action="{{route('logout')}}" method="POST">

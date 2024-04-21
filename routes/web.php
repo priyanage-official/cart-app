@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController\CustomerVendorController;
 use App\Http\Controllers\AdminController\DashboardController;
 use App\Http\Controllers\AuthController\LoginController;
 use App\Http\Controllers\AuthController\RegisterController;
@@ -29,7 +30,9 @@ Route::post('login', [LoginController::class, 'loginUser'])->name('login');
 Route::get('product-details/{id}', [ProductController::class, 'index'])->name('product-details');
 
 Route::group(['middleware' => ['auth', 'roleWiseLogin']], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('customer-list', [CustomerVendorController::class, 'customerListView'])->name('customer-list');
+
 });
 
 Route::group(['middleware' => ['auth']], function () {
