@@ -1,4 +1,4 @@
-// Login Submit
+// Modal Close For Bootstrap 5 & JS
 function closeModal() {
     var myModalEl = document.querySelector('#authModal');
     var modal = bootstrap.Modal.getOrCreateInstance(myModalEl)
@@ -6,6 +6,28 @@ function closeModal() {
 
     $('.modal-backdrop').hide();
 }
+
+$("#profileImg").click(function (e) {
+    $("#profile_pic").trigger('click');
+});
+
+$("#profile_pic").change(function () {
+    let files = $("#profile_pic")[0].files;
+
+    console.log(files);
+
+    if(files.length > 0){
+        let reader = new FileReader();
+        reader.onload = function () {
+            let output = document.getElementById('profile-img');
+            output.src = reader.result;
+        }
+
+        if(event.target.files[0]){
+            reader.readAsDataURL(event.target.files[0])
+        }
+    }
+});
 
 $(document).ready(function () {
 
@@ -21,6 +43,7 @@ $(document).ready(function () {
         })
     });
 
+    //User Login
     $("#login-form").validate({
         rules: {
             username: {
@@ -83,7 +106,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#register-form").validate({
+    //User Registration
+    $("#save-profile").validate({
         rules: {
             fullname: {
                 required: true
@@ -99,15 +123,6 @@ $(document).ready(function () {
             },
             dob: {
                 required: true
-            },
-            role_name: {
-                required: true
-            },
-            username: {
-                required: true
-            },
-            password: {
-                required: true
             }
         },
         submitHandler: function (form) {
@@ -117,19 +132,19 @@ $(document).ready(function () {
                 }
             });
 
-            $("#registerBtn").attr('disabled', true);
+            $("#saveProfileBtn").attr('disabled', true);
 
-            let href = "http://127.0.0.1:8000/register";
+            let href = "http://127.0.0.1:8000/save-profile";
 
             let formData = new FormData(form);
 
-            let files = $("#registerProfilePic")[0].files;
+            // let files = $("#registerProfilePic")[0].files;
 
-            if (files.length > 0) {
-                formData.append("profile_pic", files);
-            } else {
-                formData.append("profile_pic", '')
-            }
+            // if (files.length > 0) {
+            //     formData.append("profile_pic", files);
+            // } else {
+            //     formData.append("profile_pic", '')
+            // }
 
             $.ajax({
                 url: href,
@@ -138,15 +153,12 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: function (resposne, textStatus, jqXHR) {
-                    $("#registerBtn").attr('disabled', false);
+                    $("#saveProfileBtn").attr('disabled', false);
 
                     if (jqXHR.responseJSON.statusCode == 200) {
-                        document.getElementById("register-form").reset();
-
-                        closeModal();
 
                         $.jGrowl(jqXHR.responseJSON.message, {
-                            header: 'Register',
+                            header: 'Save Profile',
                             group: 'bg-primary',
 
                         });
@@ -154,9 +166,9 @@ $(document).ready(function () {
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    $("#registerBtn").attr('disabled', false);
+                    $("#saveProfileBtn").attr('disabled', false);
                     $.jGrowl(jqXHR.responseJSON.message, {
-                        header: 'Register',
+                        header: 'Save Profile',
                         group: 'bg-danger',
 
                     });

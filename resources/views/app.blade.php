@@ -34,7 +34,7 @@
 
     @include('layouts.navbar')
 
-    @include('layouts.header')
+    {{-- @include('layouts.header') --}}
 
     <!-- Section-->
     <section class="py-5">
